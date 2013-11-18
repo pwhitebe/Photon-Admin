@@ -3,8 +3,9 @@ Photon-Admin
 
 The Photon-Admin is a web-application that used to help manage and publish content for the Rapid MMWR iPhone app (Photon)
 
-Issue tracker is available: http://code.phiresearchlab.org/jira/browse/PHOT
-Project wiki is available: http://code.phiresearchlab.org/confluence/pages/viewpage.action?pageId=8945672
+Issue tracker is available through [Lab Jira](http://code.phiresearchlab.org/jira/browse/PHOT)
+
+Project wiki is available through [Lab Confluence](http://code.phiresearchlab.org/confluence/pages/viewpage.action?pageId=8945672)
 
 ## Goals
 To develop an JQuery app that allows easy publishing of content from MMWR Weekly to be consumed by the Photon app.

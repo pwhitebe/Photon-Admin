@@ -3,7 +3,8 @@ Photon-Admin
 
 The Photon-Admin is a web-application that used to help manage and publish content for the Rapid MMWR iPhone app (Photon)
 
-Issue tracker is available: TBD
+Issue tracker is available: http://code.phiresearchlab.org/jira/browse/PHOT
+Project wiki is available: http://code.phiresearchlab.org/confluence/pages/viewpage.action?pageId=8945672
 
 ## Goals
 To develop an JQuery app that allows easy publishing of content from MMWR Weekly to be consumed by the Photon app.
@@ -12,7 +13,7 @@ To develop an JQuery app that allows easy publishing of content from MMWR Weekly
 * JQuery 2.03 compatible browser (Internet Explorer 9+, Firefox, Opera, Chrome)
 
 ## Roadmap
-* Active development, 4 week iterations
+* Active development, 1 week iterations
 
 ## Contributing
 Anyone is encouraged to contribute to the project by [forking](https://help.github.com/articles/fork-a-repo) and submitting a pull request. (If you are new to GitHub, you might start with a [basic tutorial](https://help.github.com/articles/set-up-git).) 

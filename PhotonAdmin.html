@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Photon Admin JSON Generator
+</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="jquery-2.0.3.js"></script>
+    <script src="json2.js"></script>
+<script>
+
+$(document).ready(function(){
+  $("button").click(function(){
+      //var JSONArticle = "poo";
+      var title = $("#IssueDate").val() + " / Vol. " + $("#IssueVolume").val()
+        + " / No. "+  $("#IssueNumber").val();
+     var article = {"title":$("#IssueTitle").val(),
+                    "already_known":$("#AlreadyKnownInfo").val(),
+                    "added_by_report":$("#AddedInfo").val(),
+                     "implications":$("#Implications").val()}
+      var JSONArticle = {"title":title,
+                        "articles":[article]};
+      $("#blar").text(JSON.stringify(JSONArticle));
+    //  };
+  });
+});
+    
+</script>
+
+</head>
+<body>
+  
+    <form action="">
+Issue Date: <input type="text" name="FirstName" value="05-29-1981" id="IssueDate"/><br>
+Volume Number: <input  type="text" name="LastName" value="62" id="IssueVolume"/><br>
+Issue Number:        <input type="text" name="IssueNumber" value="43" id="IssueNumber"/><br>
+        Article Title: <textarea type="text" name="ArticleTitle" id="IssueTitle"></textarea><br>
+        Article Keywords 
+        <div>
+        Added: <br>
+        Keyword Lookup: <input type="text" name="KeywordLookup" id="KeywordLookup" /> 
+        <button name="AddKeyword" id="btnFoo">Add Keyword</button>
+        <br>
+        </div>
+        <div>
+            Highlight Information <br> <br>
+            
+            What is already known on this Topic: <textarea type="text" id="AlreadyKnownInfo" ></textarea><br>
+            What is added by this report: <textarea type="text" id="AddedInfo"></textarea><br>
+            What are the implications for the public: <textarea type="text" id="Implications" ></textarea><br>
+        </div>
+</form>
+
+<button>Serialize form values</button>
+<div id="blar"></div>
+</body>
+</html>

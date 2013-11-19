@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tag-it! Example</title>
+
+
+
+    <link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">
+    <link href="css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- The real deal -->
+    <script src="js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
+    <script>
+        $(function(){
+            var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+
+       
+            $('#ArticleKeywords').tagit({
+                availableTags: sampleTags
+            });
+
+           
+            
+        });
+        
+        $(document).ready(function(){
+       
+    
+  $("button").click(function(){
+      //var JSONArticle = "poo";
+      var title = $("#IssueDate").val() + " / Vol. " + $("#IssueVolume").val()
+        + " / No. "+  $("#IssueNumber").val();
+      var tagstring = $("#ArticleKeywords").val();
+      var tagarray = tagstring.split(",");
+      var tags = JSON.stringify(tagarray)
+     var article = {"title":$("#IssueTitle").val(),
+                    "already_known":$("#AlreadyKnownInfo").val(),
+                    "added_by_report":$("#AddedInfo").val(),
+                     "implications":$("#Implications").val(),
+                    "tags":tagarray};
+      var JSONArticle = {"title":title,
+                        "articles":[article]};
+      $("#blar").text(JSON.stringify(JSONArticle));
+    //  };
+  });
+});
+    </script>
+
+</head>
+<body>
+
+
+
+<form action="">
+Issue Date: <input type="text" name="FirstName" value="05-29-1981" id="IssueDate"/><br>
+Volume Number: <input  type="text" name="LastName" value="62" id="IssueVolume"/><br>
+Issue Number:        <input type="text" name="IssueNumber" value="43" id="IssueNumber"/><br>
+        Article Title: <textarea type="text" name="ArticleTitle" id="IssueTitle"></textarea><br>
+        Article Subjects: <input name="tags" id="ArticleKeywords" >
+        <div>
+
+        <br>
+        </div>
+        <div>
+            Highlight Information <br> <br>
+            
+            What is already known on this Topic: <textarea type="text" id="AlreadyKnownInfo" ></textarea><br>
+            What is added by this report: <textarea type="text" id="AddedInfo"></textarea><br>
+            What are the implications for the public: <textarea type="text" id="Implications" ></textarea><br>
+        </div>
+</form>
+
+
+<button>Serialize form values</button>
+<div id="blar"></div>
+    
+        <div id="footer"> 
+        <div class="left">
+            <p>Built with <a href="http://jquery.com/" target="_blank">jQuery</a> and <a href="http://jqueryui.com/" target="_blank">jQuery UI</a>.</p>
+        <p class="right weak">Template adopted from <a href="http://orderedlist.com/demos/fancy-zoom-jquery/">orderedlist.com</a></p>
+        <br class="clear"/>
+    </div> 
+</body>
+</html>
+

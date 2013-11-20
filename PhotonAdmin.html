@@ -6,6 +6,7 @@
 
 
     <link rel="stylesheet" href="css/main.css">
+     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
     <link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">
     <link href="css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
 
@@ -17,7 +18,7 @@
 
     <script>
         $(function(){
-            var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+            var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby',                  'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
 
        
             $('#ArticleKeywords').tagit({
@@ -27,11 +28,16 @@
            
             
         });
+        $(function() {
+            $( "#IssueDate" ).datepicker();
+        });
+        
         
         $(document).ready(function(){
        
+            
     
-  $("button").click(function(){
+  $("#serializeButton").click(function(){
       //var JSONArticle = "poo";
       var title = $("#IssueDate").val() + " / Vol. " + $("#IssueVolume").val()
         + " / No. "+  $("#IssueNumber").val();
@@ -45,7 +51,7 @@
                     "tags":tagarray};
       var JSONArticle = {"title":title,
                         "articles":[article]};
-      $("#blar").text(JSON.stringify(JSONArticle));
+      $("#JSONBlurb").val(JSON.stringify(JSONArticle));
     //  };
   });
 });
@@ -81,17 +87,15 @@
 
 </form>
 <div id="serialize_button">
-<button>Serialize form values</button></div>
-<div id="blar"></div>
-
+<button id="serializeButton">Serialize form values</button></div>
+<p><div class="label_above">
+<label for "JSONBlurb" class="bluebox_topics">JSON Blurb:</label> <br/> <textarea type="text" name="JSONBlurb" id="JSONBlurb" rows="5" cols="80"></textarea></p>
 <!--
-        <div id="footer"> 
-        <div class="left">
-            <p>Built with <a href="http://jquery.com/" target="_blank">jQuery</a> and <a href="http://jqueryui.com/" target="_blank">jQuery UI</a>.</p>
-        <p class="right weak">Template adopted from <a href="http://orderedlist.com/demos/fancy-zoom-jquery/">orderedlist.com</a></p>
-        <br class="clear"/>
-    </div> 
+<div id="CopyButton">
+<button id="CopyButton" onClick="ClipBoard();">Copy to Clipboard</button></div>
+<div id="blar"></div>
 -->
+
 </body>
 </html>
 

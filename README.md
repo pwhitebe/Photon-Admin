@@ -10,8 +10,13 @@ Project wiki is available through [Lab Confluence](http://code.phiresearchlab.or
 ## Goals
 To develop an JQuery app that allows easy publishing of content from MMWR Weekly to be consumed by the Photon app.
 
-##Requirements
-* JQuery 2.03 compatible browser (Internet Explorer 9+, Firefox, Opera, Chrome)
+## Referenced Projects
+* [JQuery](http://jquery.com/) 1.10.2 
+* [JQuery UI](http://jqueryui.com/) 1.9.2
+* [tag-it](http://aehlke.github.io/tag-it/) 2.0
+
+## Requirements
+* JQuery 1.10.2 compatible browser (Internet Explorer 8+, Firefox, Opera, Chrome)
 
 ## Roadmap
 * Active development, 1 week iterations

@@ -1,57 +1,97 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Photon Admin JSON Generator
-</title>
-    <link rel="stylesheet" href="main.css">
-    <script src="jquery-2.0.3.js"></script>
-    <script src="json2.js"></script>
-<script>
+    <meta charset="utf-8">
+    <title>Photon Admin JSON Generator</title>
 
-$(document).ready(function(){
+
+    <link rel="stylesheet" href="css/main.css">
+    <link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">
+    <link href="css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- The real deal -->
+    <script src="js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
+    <script>
+        $(function(){
+            var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+
+       
+            $('#ArticleKeywords').tagit({
+                availableTags: sampleTags
+            });
+
+           
+            
+        });
+        
+        $(document).ready(function(){
+       
+    
   $("button").click(function(){
       //var JSONArticle = "poo";
       var title = $("#IssueDate").val() + " / Vol. " + $("#IssueVolume").val()
         + " / No. "+  $("#IssueNumber").val();
+      var tagstring = $("#ArticleKeywords").val();
+      var tagarray = tagstring.split(",");
+      var tags = JSON.stringify(tagarray)
      var article = {"title":$("#IssueTitle").val(),
                     "already_known":$("#AlreadyKnownInfo").val(),
                     "added_by_report":$("#AddedInfo").val(),
-                     "implications":$("#Implications").val()}
+                     "implications":$("#Implications").val(),
+                    "tags":tagarray};
       var JSONArticle = {"title":title,
                         "articles":[article]};
       $("#blar").text(JSON.stringify(JSONArticle));
     //  };
   });
 });
-    
-</script>
+    </script>
 
 </head>
 <body>
-  
+<div id="header"><div class="page_title">Photon Admin JSON Generator</div>
+</div>
+<br>
     <form action="">
-Issue Date: <input type="text" name="FirstName" value="05-29-1981" id="IssueDate"/><br>
-Volume Number: <input  type="text" name="LastName" value="62" id="IssueVolume"/><br>
-Issue Number:        <input type="text" name="IssueNumber" value="43" id="IssueNumber"/><br>
-        Article Title: <textarea type="text" name="ArticleTitle" id="IssueTitle"></textarea><br>
-        Article Keywords 
+<p><label for "IssueDate" class="top_fields">Issue Date:</label> <input type="text" name="FirstName" value="05-29-1981" id="IssueDate" size="12"/></p>
+<p><label for "IssueVolume" class="top_fields">Volume Number:</label> <input  type="text" name="LastName" value="62" id="IssueVolume" size="12"/></p>
+<p><label for "IssueNumber" class="top_fields">Issue Number:</label> <input type="text" name="IssueNumber" value="43" id="IssueNumber" size="12"/></p>
+         <p><label for "IssueTitle" class="top_fields">Article Title:</label> <textarea type="text" name="ArticleTitle" id="IssueTitle" rows="4" cols="60"></textarea></p>
+       
         <div>
-        Added: <br>
-        Keyword Lookup: <input type="text" name="KeywordLookup" id="KeywordLookup" /> 
-        <button name="AddKeyword" id="btnFoo">Add Keyword</button>
+        <p><label for "KeywordLookup" class="top_fields">Article Subjects:</label> 
+            
+            <input type="text" name="ArticleKeywords" id="ArticleKeywords" size="40" /> 
+<!--        <button name="AddKeyword" id="btnFoo">Add</button>-->
         <br>
         </div>
-        <div>
-            Highlight Information <br> <br>
+       <br/>
+       
+        <div id="bluebox">
+            Blue Box Topics<br> 
             
-            What is already known on this Topic: <textarea type="text" id="AlreadyKnownInfo" ></textarea><br>
-            What is added by this report: <textarea type="text" id="AddedInfo"></textarea><br>
-            What are the implications for the public: <textarea type="text" id="Implications" ></textarea><br>
+            <p><div class="label_above"><label for "AlreadyKnownInfo" class="bluebox_topics">What is <strong>already known</strong> on this topic?</label><br/> <textarea type="text" id="AlreadyKnownInfo" rows="4" cols="70" ></textarea></div></p>
+            <p><div class="label_above"><label for "AddedInfo" class="bluebox_topics">What is <strong>added</strong> by this report?</label><br/> <textarea type="text" id="AddedInfo" rows="4" cols="70"></textarea></div></p>
+            <p><div class="label_above"><label for "Implications" class="bluebox_topics">What are the <strong>implications for public health practice</strong>?</label><br/> <textarea type="text" id="Implications" rows="4" cols="70" ></textarea></div></p>
         </div>
-</form>
 
-<button>Serialize form values</button>
+</form>
+<div id="serialize_button">
+<button>Serialize form values</button></div>
 <div id="blar"></div>
+
+<!--
+        <div id="footer"> 
+        <div class="left">
+            <p>Built with <a href="http://jquery.com/" target="_blank">jQuery</a> and <a href="http://jqueryui.com/" target="_blank">jQuery UI</a>.</p>
+        <p class="right weak">Template adopted from <a href="http://orderedlist.com/demos/fancy-zoom-jquery/">orderedlist.com</a></p>
+        <br class="clear"/>
+    </div> 
+-->
 </body>
 </html>
+

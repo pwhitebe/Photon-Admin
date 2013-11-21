@@ -28,14 +28,20 @@
            
             
         });
+        
+       
+        
         $(function() {
             $( "#IssueDate" ).datepicker();
+             $( "#IssueDate" ).datepicker("option", "dateFormat", "MM d, yy");
         });
         
         
         $(document).ready(function(){
        
-            
+//           $( "#JSONBlurb" ).load( "http://www.cdc.gov/mmwr/preview/mmwrhtml/mm6245a2.htm?s_cid=mm6245a2_w", function() {
+//  alert( "Load was performed." );
+//});
     
   $("#serializeButton").click(function(){
       //var JSONArticle = "poo";
@@ -63,7 +69,7 @@
 </div>
 <br>
     <form action="">
-<p><label for "IssueDate" class="top_fields">Issue Date:</label> <input type="text" name="FirstName" value="05-29-1981" id="IssueDate" size="12"/></p>
+<p><label for "IssueDate" class="top_fields">Issue Date:</label> <input type="text" name="FirstName" value="May 29, 1981" id="IssueDate" size="19"/></p>
 <p><label for "IssueVolume" class="top_fields">Volume Number:</label> <input  type="text" name="LastName" value="62" id="IssueVolume" size="12"/></p>
 <p><label for "IssueNumber" class="top_fields">Issue Number:</label> <input type="text" name="IssueNumber" value="43" id="IssueNumber" size="12"/></p>
          <p><label for "IssueTitle" class="top_fields">Article Title:</label> <textarea type="text" name="ArticleTitle" id="IssueTitle" rows="4" cols="60"></textarea></p>

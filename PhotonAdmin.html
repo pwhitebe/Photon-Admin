@@ -48,13 +48,25 @@
       var title = $("#IssueDate").val() + " / Vol. " + $("#IssueVolume").val()
         + " / No. "+  $("#IssueNumber").val();
       var tagstring = $("#ArticleKeywords").val();
-      var tagarray = tagstring.split(",");
-      var tags = JSON.stringify(tagarray)
+      var tagarray = [];
+      if (tagstring.length >0)
+      {
+      tagarray = tagstring.split(",");
+      var tagbuilder = [];
+      var counter = 0;
+      while (counter < tagarray.length)
+      {
+          var tag = {"tag":tagarray[counter]};
+          tagbuilder[counter] = tag;
+          counter++;
+      }
+      }
+      var tags = JSON.stringify(tagbuilder)
      var article = {"title":$("#IssueTitle").val(),
                     "already_known":$("#AlreadyKnownInfo").val(),
                     "added_by_report":$("#AddedInfo").val(),
                      "implications":$("#Implications").val(),
-                    "tags":tagarray};
+                    "tags":tagbuilder};
       var JSONArticle = {"title":title,
                         "articles":[article]};
       $("#JSONBlurb").val(JSON.stringify(JSONArticle));

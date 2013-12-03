@@ -61,7 +61,8 @@
                           xmlDoc = $.parseXML(pageContents);
                           $xml = $(xmlDoc);
                           $title = $xml.find("title");
-                          console.log($title.text());
+                          //console.log($title.text());
+                          //console not recognized in IE
                           $("#IssueTitle").val($xml.find("title").text());
                           $("#IssueDate").val($xml.find("meta[name=\"Date\"]").attr("content"));
                           $("#IssueVolume").val($xml.find("meta[name=\"Volume\"]").attr("content"));
@@ -74,7 +75,8 @@
                           var errormsg = "Error: could not load the page.";
                           //output to firebug's console
                           //use alert() for other browsers/setups
-                          console.log(errormsg);
+                          alert(errormsg);
+                          //console.log(errormsg);
                       }
                   }
           );

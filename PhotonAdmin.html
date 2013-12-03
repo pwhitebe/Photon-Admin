@@ -1,57 +1,161 @@
 <!doctype html>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="utf-8" />
-    <title>Photon Admin JSON Generator
-</title>
-    <link rel="stylesheet" href="main.css">
-    <script src="jquery-2.0.3.js"></script>
-    <script src="json2.js"></script>
-<script>
+    <meta charset="utf-8">
+    <title>Photon Admin JSON Generator</title>
 
-$(document).ready(function(){
-  $("button").click(function(){
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
+    <link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">
+    <link href="css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- The real deal -->
+    <script src="js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
+    <script>
+        $(function(){
+            var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby',                  'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+
+       
+            $('#ArticleKeywords').tagit({
+                availableTags: sampleTags
+            });
+
+           
+            
+        });
+
+
+        $(function() {
+            $( "#IssueDate" ).datepicker();
+             $( "#IssueDate" ).datepicker("option", "dateFormat", "yy-mm-dd");
+        });
+        
+        
+        $(document).ready(function(){
+       
+
+  $("#parseArticle").click(function(event){
+      event.preventDefault();
+      var article_url=$("#ArticleURL").val();
+      if (article_url.length > 0){
+//make the call to YQL
+          $.getJSON("http://query.yahooapis.com/v1/public/yql?"+
+                  "q=select%20*%20from%20xml%20where%20url%3D%22"+
+                  encodeURIComponent(article_url)+
+                  "%22&format=xml'&callback=?",
+                  function(data){
+                      if(data.results[0]){
+                          //this data.results[0] is the return object you work with,
+                          //if you actually want to do something with the returned xml
+                          pageContents = data.results[0];
+                          //scrape out some characters that are fine in html, but cause the xml parse to croak
+                          pageContents = pageContents.replace("&trade;","&#8482;");
+                          pageContents = pageContents.replace(/&nbsp;/g," ");
+                          pageContents = pageContents.replace(/&ndash;/g," ");
+                          $("#FooDeleteMe").val(pageContents);
+                          xmlDoc = $.parseXML(pageContents);
+                          $xml = $(xmlDoc);
+                          $title = $xml.find("title");
+                          //console.log($title.text());
+                          //console not recognized in IE
+                          $("#IssueTitle").val($xml.find("title").text());
+                          $("#IssueDate").val($xml.find("meta[name=\"Date\"]").attr("content"));
+                          $("#IssueVolume").val($xml.find("meta[name=\"Volume\"]").attr("content"));
+                          $("#IssueNumber").val($xml.find("meta[name=\"Issue\"]").attr("content"));
+                          $("#AlreadyKnownInfo").val($xml.find(".fb-answer:eq(0)").text());
+                          $("#AddedInfo").val($xml.find(".fb-answer:eq(1)").text());
+                          $("#Implications").val($xml.find(".fb-answer:eq(2)").text());
+
+                      } else {
+                          var errormsg = "Error: could not load the page.";
+                          //output to firebug's console
+                          //use alert() for other browsers/setups
+                          alert(errormsg);
+                          //console.log(errormsg);
+                      }
+                  }
+          );
+      }
+  }   );
+    
+  $("#serializeButton").click(function(){
       //var JSONArticle = "poo";
       var title = $("#IssueDate").val() + " / Vol. " + $("#IssueVolume").val()
         + " / No. "+  $("#IssueNumber").val();
+      var tagstring = $("#ArticleKeywords").val();
+      var tagarray = [];
+      if (tagstring.length >0)
+      {
+      tagarray = tagstring.split(",");
+      var tagbuilder = [];
+      var counter = 0;
+      while (counter < tagarray.length)
+      {
+          var tag = {"tag":tagarray[counter]};
+          tagbuilder[counter] = tag;
+          counter++;
+      }
+      }
+      var tags = JSON.stringify(tagbuilder)
      var article = {"title":$("#IssueTitle").val(),
                     "already_known":$("#AlreadyKnownInfo").val(),
                     "added_by_report":$("#AddedInfo").val(),
-                     "implications":$("#Implications").val()}
+                     "implications":$("#Implications").val(),
+                    "tags":tagbuilder};
       var JSONArticle = {"title":title,
                         "articles":[article]};
-      $("#blar").text(JSON.stringify(JSONArticle));
+      $("#JSONBlurb").val(JSON.stringify(JSONArticle));
+      $("#JSONBlurb").select();
+      $("#serialize_message").show();
     //  };
   });
 });
-    
-</script>
+    </script>
 
 </head>
 <body>
-  
+<div id="header"><div class="page_title">Photon Admin JSON Generator</div></div>
+<br>
     <form action="">
-Issue Date: <input type="text" name="FirstName" value="05-29-1981" id="IssueDate"/><br>
-Volume Number: <input  type="text" name="LastName" value="62" id="IssueVolume"/><br>
-Issue Number:        <input type="text" name="IssueNumber" value="43" id="IssueNumber"/><br>
-        Article Title: <textarea type="text" name="ArticleTitle" id="IssueTitle"></textarea><br>
-        Article Keywords 
+<p><label for="ArticleURL" class="top_fields">Article URL:</label> <input type="text" name="ArticleURL" id="ArticleURL" size="60"/>
+    <button type="button" id="parseArticle">Auto Fetch Article</button></p>
+<p><label for="IssueDate" class="top_fields">Issue Date:</label> <input type="text" name="FirstName" value="" id="IssueDate" size="12"/></p>
+<p><label for="IssueVolume" class="top_fields">Volume Number:</label> <input  type="text" name="LastName" value="" id="IssueVolume" size="12"/></p>
+<p><label for="IssueNumber" class="top_fields">Issue Number:</label> <input type="text" name="IssueNumber" value="" id="IssueNumber" size="12"/></p>
+         <p><label for="IssueTitle" class="top_fields">Article Title:</label> <textarea type="text" name="ArticleTitle" id="IssueTitle" rows="2" cols="70"></textarea></p>
+       
         <div>
-        Added: <br>
-        Keyword Lookup: <input type="text" name="KeywordLookup" id="KeywordLookup" /> 
-        <button name="AddKeyword" id="btnFoo">Add Keyword</button>
-        <br>
-        </div>
-        <div>
-            Highlight Information <br> <br>
+        <p><label for="ArticleKeywords" class="top_fields">Article Subjects:</label>
             
-            What is already known on this Topic: <textarea type="text" id="AlreadyKnownInfo" ></textarea><br>
-            What is added by this report: <textarea type="text" id="AddedInfo"></textarea><br>
-            What are the implications for the public: <textarea type="text" id="Implications" ></textarea><br>
+            <input type="text" name="ArticleKeywords" id="ArticleKeywords" size="40" /> 
+<!--        <button name="AddKeyword" id="btnFoo">Add</button>-->
         </div>
-</form>
+       <br/>
 
-<button>Serialize form values</button>
-<div id="blar"></div>
+        <div class="bluebox">
+            Blue Box Topics<br>
+            <p><div class="label_above"><label for="AlreadyKnownInfo" class="bluebox_topics">What is <strong>already known</strong> on this topic?</label><br/> <textarea type="text" id="AlreadyKnownInfo" rows="4" cols="70" ></textarea></div></p>
+            <p><div class="label_above"><label for="AddedInfo" class="bluebox_topics">What is <strong>added</strong> by this report?</label><br/> <textarea type="text" id="AddedInfo" rows="4" cols="70"></textarea></div></p>
+            <p><div class="label_above"><label for="Implications" class="bluebox_topics">What are the <strong>implications for public health practice</strong>?</label><br/> <textarea type="text" id="Implications" rows="4" cols="70" ></textarea></div></p>
+        </div>
+
+<div class="serialize_button">
+<button type="button" id="serializeButton">Serialize form values</button></div>
+<div class="bluebox">
+    <p><div class="label_above"><label for="JSONBlurb" class="bluebox_topics">JSON Blurb:</label> <br/> <textarea type="text" id="JSONBlurb" rows="5" cols="70"></textarea></div></p>
+</div>
+</form>
+<div id="serialize_message">
+    Please copy (Control+C) and paste the JSON Blob into the <a href="http://toolsadmin.cdc.gov">CDC Content Syndication Service Admin Site</a>.
+</div>
+<div class="serialize_button">
+<br/></div>
+
 </body>
 </html>
+

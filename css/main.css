@@ -1,0 +1,92 @@
+html {
+    background-color: #ffffff;
+    /* background-image: linear-gradient(bottom, rgb(238,238,238) 18%, rgb(153,153,153) 59%, rgb(238,238,238) 80%);
+    background-image: -o-linear-gradient(bottom, rgb(238,238,238) 18%, rgb(153,153,153) 59%, rgb(238,238,238) 80%);
+    background-image: -moz-linear-gradient(bottom, rgb(238,238,238) 18%, rgb(153,153,153) 59%, rgb(238,238,238) 80%);
+    background-image: -webkit-linear-gradient(bottom, rgb(238,238,238) 18%, rgb(153,153,153) 59%, rgb(238,238,238) 80%);
+    background-image: -ms-linear-gradient(bottom, rgb(238,238,238) 18%, rgb(153,153,153) 59%, rgb(238,238,238) 80%);*/
+}
+
+body {
+    margin: 0 auto;
+    max-width: 800px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+    color: #333333;
+    background-color: #ecf0f1;
+    -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+}
+
+
+#header {
+	
+	background-color: #2d58a7;
+	height: 2.5em;
+	color: #FFF;
+	text-align:center;
+	
+	
+	
+	}
+
+#sub-header {
+
+    background-color: #2d58a7;
+    height: 1.5em;
+    color: #FFF;
+    text-align:center;
+}
+.page_title {color: #FFF;
+font-weight:bold; padding-top:0.5em; }
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.3em;
+}
+
+samp
+{
+    /* hide tutorial instructions so they don't show in the browser */
+    display: none;
+}
+
+
+label
+{
+font-weight: bold;
+}
+
+.top_fields {width: 10em;
+float: left;
+text-align: right;
+margin-right: 0.5em;
+display: inline-block;
+	
+	}
+
+
+.label_above {display: inline-block;
+}
+
+
+.bluebox {margin-left:10.5em; float: left;  display:inline-block;}
+
+.serialize_button {clear:left;}
+
+#serialize_message {clear:left;display: none;}
+
+#tools_link {float: right;}
+
+#parseArticle {display:inline-block;}
+
+img
+{
+    background: dimgray;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 15px 10px 10px;
+    margin: 10px 0;
+    max-width: 95%;
+}
